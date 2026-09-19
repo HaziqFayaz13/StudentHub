@@ -2,25 +2,13 @@ const mysql = require("mysql2");
 
 let db;
 
-const isRailway = Boolean(process.env.MYSQLHOST);
-
-console.log("========== DATABASE CHECK ==========");
-console.log("MYSQLHOST:", Boolean(process.env.MYSQLHOST));
-console.log("MYSQLPORT:", Boolean(process.env.MYSQLPORT));
-console.log("MYSQLUSER:", Boolean(process.env.MYSQLUSER));
-console.log("MYSQLPASSWORD:", Boolean(process.env.MYSQLPASSWORD));
-console.log("MYSQLDATABASE:", Boolean(process.env.MYSQLDATABASE));
-console.log("MYSQL_URL:", Boolean(process.env.MYSQL_URL));
-console.log("DATABASE_URL:", Boolean(process.env.DATABASE_URL));
-console.log("====================================");
-
-if (isRailway) {
+if (process.env.DB_HOST) {
   db = mysql.createConnection({
-    host: process.env.MYSQLHOST,
-    port: Number(process.env.MYSQLPORT || 3306),
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPASSWORD,
-    database: process.env.MYSQLDATABASE
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT || 3306),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
   });
 } else {
   db = mysql.createConnection({
@@ -33,12 +21,8 @@ if (isRailway) {
 
 db.connect((err) => {
   if (err) {
-    console.log("========== MYSQL ERROR ==========");
-    console.log("message:", err.message);
-    console.log("code:", err.code);
-    console.log("errno:", err.errno);
-    console.log("sqlState:", err.sqlState);
-    console.log("=================================");
+    console.log("MySQL connection failed:", err.message);
+    console.log("MySQL error code:", err.code);
     return;
   }
 
