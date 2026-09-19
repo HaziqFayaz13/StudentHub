@@ -3,7 +3,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 
-// Load .env from the backend folder
 dotenv.config({
   path: path.join(__dirname, ".env"),
 });
@@ -15,7 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "15mb" }));
 
-// Routes
+// ===============================
+// API ROUTES
+// ===============================
+
 const attendanceRoutes = require("./routes/attendance");
 const cgpaRoutes = require("./routes/cgpa");
 const timetableRoutes = require("./timetable");
@@ -24,7 +26,6 @@ const notesRoutes = require("./routes/notes");
 const previousPapersRoutes = require("./routes/previousPapers");
 const settingsRoutes = require("./routes/settings");
 
-// API routes
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/cgpa", cgpaRoutes);
 app.use("/api/timetable", timetableRoutes);
@@ -33,12 +34,37 @@ app.use("/api/notes", notesRoutes);
 app.use("/api/previous-papers", previousPapersRoutes);
 app.use("/api/settings", settingsRoutes);
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("StudentHub Backend is running");
+// ===============================
+// FRONTEND
+// ===============================
+
+// React/Vite production build
+const frontendPath = path.join(__dirname, "..", "dist");
+
+app.use(express.static(frontendPath));
+
+// ===============================
+// BACKEND TEST
+// ===============================
+
+app.get("/api", (req, res) => {
+  res.json({
+    message: "StudentHub Backend is running",
+  });
 });
 
-// Start server
+// ===============================
+// REACT ROUTING
+// ===============================
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+
+// ===============================
+// SERVER
+// ===============================
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, "0.0.0.0", () => {
