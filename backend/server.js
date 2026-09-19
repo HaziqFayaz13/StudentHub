@@ -38,7 +38,6 @@ app.use("/api/settings", settingsRoutes);
 // FRONTEND
 // ===============================
 
-// React/Vite production build
 const frontendPath = path.join(__dirname, "..", "dist");
 
 app.use(express.static(frontendPath));
@@ -57,7 +56,8 @@ app.get("/api", (req, res) => {
 // REACT ROUTING
 // ===============================
 
-app.get("*", (req, res) => {
+// Express 5 compatible fallback
+app.use((req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
