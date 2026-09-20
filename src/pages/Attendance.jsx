@@ -13,6 +13,8 @@ import {
   subjectAttendance,
 } from "../data.js";
 
+const API_URL = "/api/attendance";
+
 const blank = {
   subject: SUBJECTS[0] || "",
   attended: 0,
@@ -37,14 +39,11 @@ function AttendancePage() {
   useEffect(() => {
     async function loadAttendance() {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/attendance",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(API_URL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch attendance");
@@ -123,7 +122,7 @@ function AttendancePage() {
     try {
       if (editing?.id) {
         const response = await fetch(
-          `http://localhost:5000/api/attendance/${editing.id}`,
+          `${API_URL}/${editing.id}`,
           {
             method: "PUT",
             headers: {
@@ -157,21 +156,18 @@ function AttendancePage() {
 
         pushToast("Attendance updated.", "green");
       } else {
-        const response = await fetch(
-          "http://localhost:5000/api/attendance",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              subject,
-              attended,
-              total,
-            }),
-          }
-        );
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            subject,
+            attended,
+            total,
+          }),
+        });
 
         if (!response.ok) {
           throw new Error("Failed to add attendance");
@@ -209,7 +205,7 @@ function AttendancePage() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/attendance/${item.id}`,
+        `${API_URL}/${item.id}`,
         {
           method: "PUT",
           headers: {
