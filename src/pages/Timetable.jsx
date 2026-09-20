@@ -14,7 +14,7 @@ import {
   withBreakPeriods,
 } from "../data.js";
 
-const API_URL = "http://localhost:5000/api/timetable";
+const API_URL = "/api/timetable";
 
 function slotLabel(slot) {
   if (slot.type === "lunch") return "Lunch";
