@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useApp } from "../context/AppContext.jsx";
 import { useTheme } from "../context/ThemeContext.jsx";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "/api";
 
 export default function Settings() {
   const {
