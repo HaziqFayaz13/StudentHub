@@ -87,6 +87,10 @@ a {
   clip: rect(0 0 0 0);
 }
 
+/* =========================
+   APP / SIDEBAR
+========================= */
+
 .app-shell {
   display: flex;
   min-height: 100vh;
@@ -233,6 +237,10 @@ a {
   flex-direction: column;
 }
 
+/* =========================
+   TOPBAR
+========================= */
+
 .topbar {
   min-height: var(--topbar);
   display: flex;
@@ -365,6 +373,7 @@ select,
   right: 0;
   top: 54px;
   width: 230px;
+  max-width: calc(100vw - 32px);
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -454,6 +463,10 @@ select,
   color: var(--muted);
 }
 
+/* =========================
+   PAGE
+========================= */
+
 .page {
   padding: 8px 28px 40px;
 }
@@ -499,6 +512,10 @@ h2 {
   line-height: 1.55;
 }
 
+/* =========================
+   BUTTONS
+========================= */
+
 .btn {
   background: var(--indigo);
   color: white;
@@ -531,6 +548,10 @@ h2 {
 .text-btn.danger {
   color: var(--rose);
 }
+
+/* =========================
+   GRIDS
+========================= */
 
 .stats-grid,
 .split,
@@ -565,6 +586,10 @@ h2 {
 .form-grid .btn {
   grid-column: 1 / -1;
 }
+
+/* =========================
+   CARDS / PANELS
+========================= */
 
 .stat-card,
 .panel,
@@ -654,6 +679,10 @@ h2 {
   color: var(--muted);
 }
 
+/* =========================
+   CHART / ACTIVITY
+========================= */
+
 .chart-frame {
   min-height: 220px;
 }
@@ -704,6 +733,10 @@ h2 {
   border-left: 3px solid var(--rose);
 }
 
+/* =========================
+   TABLE
+========================= */
+
 .table-wrap {
   overflow: auto;
 }
@@ -734,6 +767,10 @@ th {
 .compact-tables td {
   padding: 8px 8px;
 }
+
+/* =========================
+   STATUS
+========================= */
 
 .pill {
   border-radius: 999px;
@@ -770,6 +807,10 @@ th {
   color: var(--indigo);
 }
 
+/* =========================
+   PROGRESS
+========================= */
+
 .progress-copy {
   margin: 16px 0 8px;
   color: var(--muted);
@@ -791,6 +832,10 @@ th {
 .progress-fill.is-low {
   background: linear-gradient(90deg, #f59e0b, #e11d48);
 }
+
+/* =========================
+   QUICK / TIMETABLE
+========================= */
 
 .quick-grid,
 .overview-grid,
@@ -986,6 +1031,10 @@ th {
   padding: 8px 12px;
 }
 
+/* =========================
+   EMPTY / LOADING
+========================= */
+
 .empty-state,
 .loader {
   padding: 36px 20px;
@@ -1034,7 +1083,7 @@ th {
 
 /* =========================
    MODAL
-   ========================= */
+========================= */
 
 .modal-backdrop {
   position: fixed;
@@ -1089,6 +1138,10 @@ th {
   border-bottom: 1px solid var(--line);
 }
 
+/* =========================
+   TOAST
+========================= */
+
 .toast-stack {
   position: fixed;
   right: 20px;
@@ -1133,6 +1186,10 @@ th {
   display: none;
 }
 
+/* =========================
+   RESPONSIVE 1100
+========================= */
+
 @media (max-width: 1100px) {
   .stats-grid,
   .stats-grid.three,
@@ -1151,19 +1208,47 @@ th {
   }
 }
 
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+
 @media (max-width: 820px) {
-  .sidebar {
-    position: fixed;
-    transform: translateX(-110%);
-    width: min(86vw, 300px);
-  }
 
-  .sidebar.is-open {
-    transform: none;
-  }
+  /* ---------- SIDEBAR ---------- */
 
+  .sidebar,
   .sidebar.is-collapsed {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: min(86vw, 300px);
+    height: 100vh;
+    transform: translateX(-110%);
+    transition: transform 0.22s ease;
+  }
+
+  .sidebar.is-open,
+  .sidebar.is-open.is-collapsed {
+    transform: translateX(0);
+  }
+
+  /* Mobile sidebar is always expanded */
+  .sidebar.is-collapsed .brand-copy,
+  .sidebar.is-collapsed .nav-item span,
+  .sidebar.is-collapsed .collapse-btn span,
+  .sidebar.is-collapsed .sidebar-user .brand-copy {
+    display: block;
+  }
+
+  .sidebar.is-collapsed .nav-item,
+  .sidebar.is-collapsed .collapse-btn,
+  .sidebar.is-collapsed .sidebar-user {
+    justify-content: flex-start;
+  }
+
+  /* Collapse button is desktop-only */
+  .sidebar .collapse-btn {
+    display: none;
   }
 
   .sidebar-backdrop {
@@ -1175,17 +1260,92 @@ th {
     z-index: 15;
   }
 
+  /* ---------- TOPBAR ---------- */
+
+  .topbar {
+    gap: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .topbar-actions {
+    gap: 6px;
+  }
+
+  .icon-button {
+    flex-shrink: 0;
+  }
+
   .menu-button {
     display: grid;
+    flex-shrink: 0;
   }
+
+  /* ---------- NOTIFICATIONS ---------- */
+
+  .dropdown {
+    width: 280px;
+    max-width: calc(100vw - 32px);
+    right: 0;
+    top: 52px;
+  }
+
+  .dropdown.wide {
+    width: 280px;
+    max-width: calc(100vw - 32px);
+  }
+
+  .dropdown-item {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .dropdown-item strong,
+  .dropdown-item p,
+  .dropdown-item span {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* ---------- MAIN LAYOUT ---------- */
+
+  .page {
+    width: 100%;
+    min-width: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .stack {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .welcome {
+    width: 100%;
+  }
+
+  .welcome > div {
+    min-width: 0;
+  }
+
+  .lede {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  /* ---------- GRIDS ---------- */
 
   .stats-grid,
   .stats-grid.three,
   .split,
   .form-grid,
   .skeleton-grid,
-  .quick-grid,
-  .timetable {
+  .quick-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1194,17 +1354,102 @@ th {
     grid-column: auto;
   }
 
-  .page,
-  .topbar {
-    padding-left: 16px;
-    padding-right: 16px;
+  /* ---------- NOTES ---------- */
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
   }
 
-  h1 {
-    font-size: 26px;
+  .file-card {
+    width: 100%;
+    min-width: 0;
+    padding: 16px;
   }
 
-  /* Mobile modal */
+  .file-card h2,
+  .file-card p {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .file-card .row-actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .file-card .row-actions .chip {
+    width: 100%;
+  }
+
+  .file-card .row-actions .text-btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  /* ---------- NOTES TOOLBAR ---------- */
+
+  .toolbar {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .toolbar input,
+  .toolbar select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .toolbar .segmented {
+    width: 100%;
+  }
+
+  .toolbar .segmented button {
+    flex: 1;
+  }
+
+  /* ---------- TABLE ---------- */
+
+  .panel {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* ---------- TIMETABLE ---------- */
+
+  .timetable {
+    grid-template-columns: 1fr;
+  }
+
+  .timetable .day-col {
+    padding: 12px;
+    min-width: 0;
+  }
+
+  .slot-actions {
+    gap: 5px;
+  }
+
+  .button.small {
+    padding: 5px 8px;
+  }
+
+  .panel .form-grid {
+    gap: 10px;
+  }
+
+  /* ---------- MODAL ---------- */
+
   .modal-backdrop {
     align-items: flex-start;
     padding: 12px;
@@ -1214,10 +1459,23 @@ th {
     max-height: calc(100vh - 24px);
     width: 100%;
   }
+
+  /* ---------- TOAST ---------- */
+
+  .toast-stack {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .toast {
+    width: 100%;
+  }
 }
+
 /* =========================
    TIMETABLE CONTROLS
-   ========================= */
+========================= */
 
 .timetable .panel-header {
   margin-bottom: 10px;
@@ -1256,7 +1514,6 @@ th {
   margin-top: 3px;
 }
 
-/* Edit / Delete area */
 .slot-actions {
   display: flex;
   align-items: center;
@@ -1265,7 +1522,6 @@ th {
   margin-top: 9px;
 }
 
-/* Small timetable buttons */
 .button.small {
   border: 1px solid var(--line);
   background: var(--surface);
@@ -1298,7 +1554,6 @@ th {
   border-color: var(--rose);
 }
 
-/* Compact Add buttons */
 .timetable .button,
 .toolbar .button {
   border: 0;
@@ -1312,13 +1567,11 @@ th {
   white-space: nowrap;
 }
 
-/* Compact status pills */
 .timetable .pill {
   padding: 4px 8px;
   font-size: 10px;
 }
 
-/* Better timetable form */
 .timetable + .panel {
   margin-top: 2px;
 }
@@ -1365,34 +1618,15 @@ th {
   grid-column: 1 / -1;
 }
 
-/* Make day filter chips slightly smaller */
 .toolbar .chip {
   padding: 7px 11px;
   border-radius: 9px;
   font-size: 12px;
 }
 
-/* Mobile */
-@media (max-width: 820px) {
-  .timetable .day-col {
-    padding: 12px;
-  }
-
-  .slot-actions {
-    gap: 5px;
-  }
-
-  .button.small {
-    padding: 5px 8px;
-  }
-
-  .panel .form-grid {
-    gap: 10px;
-  }
-}
 /* =========================
    AUTH / LOGIN PAGE
-   ========================= */
+========================= */
 
 .auth-screen {
   min-height: 100vh;
@@ -1412,8 +1646,6 @@ th {
   position: relative;
   z-index: 2;
 }
-
-/* Branding */
 
 .auth-brand {
   display: flex;
@@ -1453,8 +1685,6 @@ th {
   font-weight: 600;
 }
 
-/* Card */
-
 .auth-card {
   background: var(--surface, #ffffff);
   border: 1px solid var(--line, #e5e7eb);
@@ -1464,8 +1694,6 @@ th {
     0 20px 50px rgba(15, 23, 42, 0.08),
     0 4px 12px rgba(15, 23, 42, 0.04);
 }
-
-/* Heading */
 
 .auth-heading {
   margin-bottom: 26px;
@@ -1494,8 +1722,6 @@ th {
   font-size: 13px;
   line-height: 1.6;
 }
-
-/* Form */
 
 .auth-form {
   display: flex;
@@ -1558,8 +1784,6 @@ th {
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.10);
 }
 
-/* Error */
-
 .auth-error {
   display: flex;
   align-items: center;
@@ -1584,8 +1808,6 @@ th {
   font-size: 11px;
   font-weight: 800;
 }
-
-/* Submit button */
 
 .auth-submit {
   width: 100%;
@@ -1626,8 +1848,6 @@ th {
   line-height: 1;
 }
 
-/* Loading spinner */
-
 .auth-spinner {
   width: 14px;
   height: 14px;
@@ -1642,8 +1862,6 @@ th {
     transform: rotate(360deg);
   }
 }
-
-/* Footer */
 
 .auth-footer {
   display: flex;
@@ -1671,8 +1889,6 @@ th {
   text-decoration: underline;
 }
 
-/* Bottom text */
-
 .auth-bottom {
   margin-top: 18px;
   text-align: center;
@@ -1680,8 +1896,6 @@ th {
   font-size: 10px;
   font-weight: 600;
 }
-
-/* Background decoration */
 
 .auth-background-shape {
   position: absolute;
@@ -1706,8 +1920,6 @@ th {
   background: rgba(99, 102, 241, 0.06);
 }
 
-/* Mobile */
-
 @media (max-width: 520px) {
   .auth-screen {
     padding: 22px 15px;
@@ -1724,173 +1936,5 @@ th {
 
   .auth-brand {
     margin-bottom: 18px;
-  }
-}
-
-/* =========================
-   MOBILE RESPONSIVE FIXES
-   ========================= */
-
-@media (max-width: 820px) {
-
-  /* ---------- SIDEBAR ---------- */
-
-  .sidebar,
-  .sidebar.is-collapsed {
-    width: min(86vw, 300px);
-    transform: translateX(-110%);
-  }
-
-  .sidebar.is-open,
-  .sidebar.is-open.is-collapsed {
-    transform: translateX(0);
-  }
-
-  /* On mobile, desktop collapsed mode should not shrink the drawer */
-  .sidebar.is-collapsed .brand-copy,
-  .sidebar.is-collapsed .nav-item span,
-  .sidebar.is-collapsed .collapse-btn span,
-  .sidebar.is-collapsed .sidebar-user .brand-copy {
-    display: block;
-  }
-
-  .sidebar.is-collapsed .nav-item,
-  .sidebar.is-collapsed .collapse-btn,
-  .sidebar.is-collapsed .sidebar-user {
-    justify-content: flex-start;
-  }
-
-
-  /* ---------- TOP BAR ---------- */
-
-  .topbar {
-    gap: 8px;
-  }
-
-  .topbar-actions {
-    gap: 6px;
-  }
-
-  .icon-button {
-    flex-shrink: 0;
-  }
-
-
-  /* ---------- NOTIFICATIONS ---------- */
-
-  .dropdown.wide {
-    width: min(92vw, 360px);
-    max-width: calc(100vw - 24px);
-  }
-
-  .dropdown {
-    max-width: calc(100vw - 24px);
-  }
-
-  .dropdown-item {
-    overflow-wrap: anywhere;
-  }
-
-  .dropdown-item strong,
-  .dropdown-item p,
-  .dropdown-item span {
-    max-width: 100%;
-    overflow-wrap: anywhere;
-  }
-
-
-  /* ---------- NOTES ---------- */
-
-  .cards-grid {
-    grid-template-columns: 1fr;
-    width: 100%;
-    gap: 12px;
-  }
-
-  .file-card {
-    width: 100%;
-    min-width: 0;
-    padding: 16px;
-  }
-
-  .file-card h2,
-  .file-card p {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  .file-card .row-actions {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    width: 100%;
-  }
-
-  .file-card .row-actions .chip {
-    width: 100%;
-  }
-
-  .file-card .row-actions .text-btn {
-    grid-column: 1 / -1;
-    justify-self: start;
-  }
-
-
-  /* ---------- NOTES TOOLBAR ---------- */
-
-  .toolbar {
-    width: 100%;
-    align-items: stretch;
-  }
-
-  .toolbar input,
-  .toolbar select {
-    min-width: 0;
-    width: 100%;
-  }
-
-  .toolbar .segmented {
-    width: 100%;
-  }
-
-  .toolbar .segmented button {
-    flex: 1;
-  }
-
-
-  /* ---------- NOTES PAGE CONTENT ---------- */
-
-  .page {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .stack {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .welcome {
-    width: 100%;
-  }
-
-  .welcome > div {
-    min-width: 0;
-  }
-
-  .lede {
-    max-width: 100%;
-  }
-
-
-  /* ---------- TABLE/LIST VIEW ---------- */
-
-  .panel {
-    min-width: 0;
-  }
-
-  .table-wrap {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
   }
 }
