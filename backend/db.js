@@ -10,17 +10,16 @@ if (process.env.DATABASE_URL) {
   console.log("Using local MySQL");
 
   db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "HAZIQ@13",
-    database: "StudentHub"
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "",
+    database: process.env.DB_NAME || "StudentHub",
   });
 }
 
 db.connect((err) => {
   if (err) {
-    console.log("MySQL connection failed:", err.message);
-    console.log("MySQL error code:", err.code);
+    console.error("MySQL connection failed:", err.message);
     return;
   }
 
