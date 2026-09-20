@@ -16,7 +16,7 @@ import {
 
 const AppContext = createContext(null);
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "/api";
 
 const DEFAULT_PREFS = {
   attendanceAlerts: true,
