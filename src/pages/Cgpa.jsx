@@ -7,7 +7,7 @@ import { useApp } from "../context/AppContext.jsx";
 import { usePageLoader } from "../hooks/usePageLoader.js";
 import { SEMESTERS, SUBJECTS } from "../data.js";
 
-const API_URL = "http://localhost:5000/api/cgpa";
+const API_URL = "/api/cgpa";
 
 function getAuthHeaders() {
   const token = localStorage.getItem("studenthub-token");
