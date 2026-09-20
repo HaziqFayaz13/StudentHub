@@ -3,7 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 
-// Load .env from the backend folder
+// Load .env from backend folder
 dotenv.config({
   path: path.join(__dirname, ".env"),
 });
@@ -15,7 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "15mb" }));
 
-// Routes
+// API Routes
 const attendanceRoutes = require("./routes/attendance");
 const cgpaRoutes = require("./routes/cgpa");
 const timetableRoutes = require("./timetable");
@@ -24,7 +24,6 @@ const notesRoutes = require("./routes/notes");
 const previousPapersRoutes = require("./routes/previousPapers");
 const settingsRoutes = require("./routes/settings");
 
-// API routes
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/cgpa", cgpaRoutes);
 app.use("/api/timetable", timetableRoutes);
@@ -33,9 +32,21 @@ app.use("/api/notes", notesRoutes);
 app.use("/api/previous-papers", previousPapersRoutes);
 app.use("/api/settings", settingsRoutes);
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("StudentHub Backend is running");
+// Backend test
+app.get("/api", (req, res) => {
+  res.json({
+    message: "StudentHub Backend is running",
+  });
+});
+
+// Frontend
+const frontendPath = path.join(__dirname, "..", "dist");
+
+app.use(express.static(frontendPath));
+
+// React/Vite fallback
+app.use((req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
 
 // Start server
